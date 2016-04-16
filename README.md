@@ -31,7 +31,7 @@ val gson = new GsonBuilder().registerScalaConverters().create()
 // use gson as usual
 ```
 
-If you don't want to use all the converters you can cherry-pick some of them [as shown here](https://github.com/Augi/gson-scala/blob/master/src/main/scala/cz/augi/gsonscala/package.scala).
+If you don't want to use all the converters you can cherry-pick some of them [as shown here](https://github.com/augi/gson-scala/blob/master/src/main/scala/cz/augi/gsonscala/package.scala).
 
 # Why to use this library?
 As gson library targets Java 6, it doesn't support Java 8 type out of box. There are several libraries that add support
