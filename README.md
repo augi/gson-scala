@@ -5,9 +5,9 @@
 Allows to use Scala and Java 8 types with [gson library](https://github.com/google/gson).
 
 Supported types:
-* `java.time.Instant` - serializes as a number (Unix timestamp in millis)
-* `java.time.Duration` - serializes as a number (millis)
-* `scala.concurrent.duration.Duration` - serializes as a number (millis)
+* `java.time.Instant`
+* `java.time.Duration`
+* `scala.concurrent.duration.Duration`
 * `java.util.Optional`
 * `scala.Option`
 * `scala.Seq`
@@ -27,9 +27,16 @@ compile "cz.augi:gson-scala_2.11:$latestVersion"
 
 ```scala
 import cz.augi.gsonscala._
-val gson = new GsonBuilder().registerScalaConverters().create()
+val gson = new GsonBuilder().registerScalaMillisConverters().create()
+// or: val gson = new GsonBuilder().registerScalaStringConverters().create()
 // use gson as usual
 ```
+
+You can choose between two registrations:
+* `registerScalaMillisConverters` - serializes `java.time.Instant` and `java.time.Duration` as Unix timestamp in millis
+* `registerScalaStringConverters` - serializes `java.time.Instant` and `java.time.Duration` as ISO string
+
+In both cases, it is able to deserialize from both string and number.
 
 If you don't want to use all the converters you can cherry-pick some of them [as shown here](https://github.com/augi/gson-scala/blob/master/src/main/scala/cz/augi/gsonscala/package.scala).
 

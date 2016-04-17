@@ -3,7 +3,7 @@ package cz.augi.gsonscala
 import java.util.Optional
 import java.util.concurrent.TimeUnit
 
-import com.google.gson.GsonBuilder
+import com.google.gson.{Gson, GsonBuilder}
 import org.junit.runner.RunWith
 import org.scalatest.FlatSpec
 import org.scalatest.junit.JUnitRunner
@@ -11,9 +11,17 @@ import org.scalatest.junit.JUnitRunner
 import scala.concurrent.duration.Duration
 import org.scalatest.Matchers._
 
+class AsMillis extends UnitSpec {
+  val gson = new GsonBuilder().registerScalaMillisConverters().create()
+}
+
+class AsString extends UnitSpec {
+  val gson = new GsonBuilder().registerScalaStringConverters().create()
+}
+
 @RunWith(classOf[JUnitRunner])
-class UnitSpec extends FlatSpec {
-  val gson = new GsonBuilder().registerScalaConverters().create()
+abstract class UnitSpec extends FlatSpec {
+  def gson: Gson
 
   private case class ExampleClass(
                        instant: java.time.Instant,
