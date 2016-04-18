@@ -27,18 +27,20 @@ compile "cz.augi.gsonscala:gson-scala_2.11:$latestVersion"
 
 ```scala
 import cz.augi.gsonscala._
-val gson = new GsonBuilder().registerScalaMillisConverters().create()
-// or: val gson = new GsonBuilder().registerScalaStringConverters().create()
-// use gson as usual
+val gson = new GsonBuilder()
+                .registerBasicConverters() // registers for Optional, Option and Seq
+                .registerMillisDurationConverters() // registers for Duration classes expecting millis in integer values
+                .registerUnixMillisInstantConverter() // registers for Instant expecting Unix millis in integer values
+                .create()
 ```
 
-You can choose between two registrations:
-* `registerScalaMillisConverters` - serializes `java.time.Instant` and `java.time.Duration` as Unix timestamp in millis
-* `registerScalaStringConverters` - serializes `java.time.Instant` and `java.time.Duration` as ISO string
+Alternatively, these methods can be used for registrations:
+* `registerSecondsDurationConverters` - expects durations in seconds
+* `registerStringDurationConverters`
+* `registerUnixSecondsInstantConverter` - expects time in Unix timestamp (seconds)
+* `registerStringInstantConverter` - expects time in ISO format
 
-In both cases, it is able to deserialize from both string and number.
-
-If you don't want to use all the converters you can cherry-pick some of them [as shown here](https://github.com/augi/gson-scala/blob/master/src/main/scala/cz/augi/gsonscala/package.scala).
+You can also cherry-pick some of converters [as shown here](https://github.com/augi/gson-scala/blob/master/src/main/scala/cz/augi/gsonscala/package.scala).
 
 ## Why to use this library?
 As gson library targets Java 6, it doesn't support Java 8 type out of the box. There are several libraries that add support

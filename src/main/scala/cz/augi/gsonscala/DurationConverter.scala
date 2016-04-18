@@ -5,17 +5,17 @@ import java.time.Duration
 
 import com.google.gson.{JsonDeserializationContext, _}
 
-object DurationAsMillisConverter extends DurationConverterBase {
+object DurationAsMillisConverter  extends JsonSerializer[Duration] with JsonDeserializer[Duration] {
   override def serialize(src: Duration, typeOfSrc: Type, context: JsonSerializationContext): JsonElement = new JsonPrimitive(src.toMillis)
+  override def deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): Duration = Duration.ofMillis(json.getAsLong)
 }
 
-object DurationAsStringConverter extends DurationConverterBase {
+object DurationAsSecondsConverter  extends JsonSerializer[Duration] with JsonDeserializer[Duration] {
+  override def serialize(src: Duration, typeOfSrc: Type, context: JsonSerializationContext): JsonElement = new JsonPrimitive(src.getSeconds)
+  override def deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): Duration = Duration.ofSeconds(json.getAsLong)
+}
+
+object DurationAsStringConverter extends JsonSerializer[Duration] with JsonDeserializer[Duration] {
   override def serialize(src: Duration, typeOfSrc: Type, context: JsonSerializationContext): JsonElement = new JsonPrimitive(src.toString)
-}
-
-abstract class DurationConverterBase extends JsonSerializer[Duration] with JsonDeserializer[Duration] {
-  override def deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): Duration = json match {
-    case primitive: JsonPrimitive if primitive.isNumber => Duration.ofMillis(primitive.getAsLong)
-    case j => Duration.parse(j.getAsString)
-  }
+  override def deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): Duration = Duration.parse(json.getAsString)
 }

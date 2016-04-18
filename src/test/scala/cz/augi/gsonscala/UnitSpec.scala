@@ -12,11 +12,27 @@ import scala.concurrent.duration.Duration
 import org.scalatest.Matchers._
 
 class AsMillis extends UnitSpec {
-  val gson = new GsonBuilder().registerScalaMillisConverters().create()
+  val gson = new GsonBuilder()
+              .registerBasicConverters()
+              .registerMillisDurationConverters()
+              .registerUnixMillisInstantConverter()
+              .create()
+}
+
+class AsSeconds extends UnitSpec {
+  val gson = new GsonBuilder()
+              .registerBasicConverters()
+              .registerSecondsDurationConverters()
+              .registerUnixSecondsInstantConverter()
+              .create()
 }
 
 class AsString extends UnitSpec {
-  val gson = new GsonBuilder().registerScalaStringConverters().create()
+  val gson = new GsonBuilder()
+              .registerBasicConverters()
+              .registerStringDurationConverters()
+              .registerStringInstantConverter()
+              .create()
 }
 
 @RunWith(classOf[JUnitRunner])
@@ -33,9 +49,9 @@ abstract class UnitSpec extends FlatSpec {
 
   "Converters" must "serialize and deserialize" in {
     val input = ExampleClass(
-                  java.time.Instant.ofEpochMilli(123456),
-                  java.time.Duration.ofMillis(123),
-                  Duration(456, TimeUnit.MILLISECONDS),
+                  java.time.Instant.ofEpochMilli(123456000),
+                  java.time.Duration.ofMillis(123000),
+                  Duration(456, TimeUnit.SECONDS),
                   Optional.of("this is optional string"),
                   Some("this is option string"),
                   Seq(1, 2, 3))
@@ -46,9 +62,9 @@ abstract class UnitSpec extends FlatSpec {
 
   it must "handle missing values" in {
     val input = ExampleClass(
-      java.time.Instant.ofEpochMilli(123456),
-      java.time.Duration.ofMillis(123),
-      Duration(456, TimeUnit.MILLISECONDS),
+      java.time.Instant.ofEpochMilli(123456000),
+      java.time.Duration.ofMillis(123000),
+      Duration(456000, TimeUnit.SECONDS),
       Optional.empty(),
       None,
       Seq.empty)

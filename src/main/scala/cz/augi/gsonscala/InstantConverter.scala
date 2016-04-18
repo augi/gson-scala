@@ -6,17 +6,17 @@ import java.time.format.DateTimeFormatter
 
 import com.google.gson.{JsonDeserializationContext, _}
 
-object InstantAsMillisConverter extends InstantConverterBase {
-  override def serialize(src: Instant, typeOfSrc: Type, context: JsonSerializationContext): JsonElement = new JsonPrimitive(src.toEpochMilli)
+object InstantAsUnixSecondsConverter extends JsonSerializer[Instant] with JsonDeserializer[Instant] {
+  def serialize(src: Instant, typeOfSrc: Type, context: JsonSerializationContext): JsonElement = new JsonPrimitive(src.getEpochSecond)
+  def deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): Instant = Instant.ofEpochSecond(json.getAsLong)
 }
 
-object InstantAsStringConverter extends InstantConverterBase {
-  override def serialize(src: Instant, typeOfSrc: Type, context: JsonSerializationContext): JsonElement = new JsonPrimitive(DateTimeFormatter.ISO_INSTANT.format(src))
+object InstantAsUnixMillisConverter extends JsonSerializer[Instant] with JsonDeserializer[Instant] {
+  def serialize(src: Instant, typeOfSrc: Type, context: JsonSerializationContext): JsonElement = new JsonPrimitive(src.toEpochMilli)
+  def deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): Instant = Instant.ofEpochMilli(json.getAsLong)
 }
 
-abstract class InstantConverterBase extends JsonSerializer[Instant] with JsonDeserializer[Instant] {
-  override def deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): Instant = json match {
-    case primitive: JsonPrimitive if primitive.isNumber => Instant.ofEpochMilli(primitive.getAsLong)
-    case j => Instant.from(DateTimeFormatter.ISO_INSTANT.parse(j.getAsString))
-  }
+object InstantAsStringConverter extends JsonSerializer[Instant] with JsonDeserializer[Instant] {
+  def serialize(src: Instant, typeOfSrc: Type, context: JsonSerializationContext): JsonElement = new JsonPrimitive(DateTimeFormatter.ISO_INSTANT.format(src))
+  def deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): Instant = Instant.from(DateTimeFormatter.ISO_INSTANT.parse(json.getAsString))
 }

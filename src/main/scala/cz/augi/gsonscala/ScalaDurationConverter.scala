@@ -7,11 +7,17 @@ import com.google.gson.{JsonDeserializationContext, _}
 
 import scala.concurrent.duration.Duration
 
-object ScalaDurationConverter extends JsonSerializer[Duration] with JsonDeserializer[Duration] {
+object ScalaDurationAsMillisConverter  extends JsonSerializer[Duration] with JsonDeserializer[Duration] {
   override def serialize(src: Duration, typeOfSrc: Type, context: JsonSerializationContext): JsonElement = new JsonPrimitive(src.toMillis)
+  override def deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): Duration = Duration(json.getAsLong, TimeUnit.MILLISECONDS)
+}
 
-  override def deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): Duration = json match {
-    case primitive: JsonPrimitive if primitive.isNumber => Duration(primitive.getAsLong, TimeUnit.MILLISECONDS)
-    case j => Duration(j.getAsString)
-  }
+object ScalaDurationAsSecondsConverter  extends JsonSerializer[Duration] with JsonDeserializer[Duration] {
+  override def serialize(src: Duration, typeOfSrc: Type, context: JsonSerializationContext): JsonElement = new JsonPrimitive(src.toSeconds)
+  override def deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): Duration = Duration(json.getAsLong, TimeUnit.SECONDS)
+}
+
+object ScalaDurationAsStringConverter extends JsonSerializer[Duration] with JsonDeserializer[Duration] {
+  override def serialize(src: Duration, typeOfSrc: Type, context: JsonSerializationContext): JsonElement = new JsonPrimitive(src.toString)
+  override def deserialize(json: JsonElement, typeOfT: Type, context: JsonDeserializationContext): Duration = Duration(json.getAsString)
 }
