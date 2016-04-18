@@ -54,7 +54,7 @@ bintray {
     publish = true
     pkg {
         repo = 'maven'
-        name = 'gson-scala'
+        name = "gson-scala_$scalaVersion"
         desc = 'Allows to use Scala and Java 8 types with gson library.'
         licenses = ['MIT']
         vcsUrl = 'https://github.com/augi/gson-scala.git'

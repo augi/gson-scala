@@ -1,6 +1,6 @@
 # gson-scala
 
-[![Build Status](https://travis-ci.org/augi/gson-scala.svg?branch=master)](https://travis-ci.org/augi/gson-scala) [![Download](https://api.bintray.com/packages/augi/maven/gson-scala/images/download.svg) ](https://bintray.com/augi/maven/gson-scala/_latestVersion)
+[![Build Status](https://travis-ci.org/augi/gson-scala.svg?branch=master)](https://travis-ci.org/augi/gson-scala) [![Download](https://api.bintray.com/packages/augi/maven/gson-scala_2.11/images/download.svg) ](https://bintray.com/augi/maven/gson-scala_2.11/_latestVersion)
 
 Allows to use Scala and Java 8 types with [gson library](https://github.com/google/gson).
 
