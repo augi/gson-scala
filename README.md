@@ -15,14 +15,14 @@ Supported types:
 ## How to use
 ```xml
 <dependency>
-    <groupId>cz.augi</groupId>
+    <groupId>cz.augi.gsonscala</groupId>
     <artifactId>gson-scala_2.11</artifactId>
     <version>$latestVersion</version>
 </dependency>
 ```
 
 ```gradle
-compile "cz.augi:gson-scala_2.11:$latestVersion"
+compile "cz.augi.gsonscala:gson-scala_2.11:$latestVersion"
 ```
 
 ```scala

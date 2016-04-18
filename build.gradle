@@ -19,7 +19,7 @@ apply plugin: 'maven'
 sourceCompatibility = '1.8'
 targetCompatibility = '1.8'
 
-group = 'cz.augi'
+group = 'cz.augi.gsonscala'
 archivesBaseName = "gson-scala_$scalaVersion"
 version = version == 'unspecified' ? 'DEVELOPER-SNAPSHOT' : version
 
