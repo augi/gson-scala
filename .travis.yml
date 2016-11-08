@@ -2,4 +2,4 @@ language: java
 jdk:
   - oraclejdk8
 after_success:
-  - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && test $TRAVIS_REPO_SLUG == "augi/gson-scala" && ./gradlew bintrayUpload -Pversion="${TRAVIS_JOB_NUMBER}.$TRAVIS_BUILD_NUMBER" --info
+  - test $TRAVIS_PULL_REQUEST == "false" && test "$TRAVIS_TAG" != "" && test $TRAVIS_REPO_SLUG == "augi/gson-scala" && ./gradlew bintrayUpload -Pversion="$TRAVIS_TAG" --info
