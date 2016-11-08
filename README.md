@@ -16,13 +16,13 @@ Supported types:
 ```xml
 <dependency>
     <groupId>cz.augi.gsonscala</groupId>
-    <artifactId>gson-scala_2.11</artifactId>
+    <artifactId>gson-scala_2.12</artifactId>
     <version>$latestVersion</version>
 </dependency>
 ```
 
 ```gradle
-compile "cz.augi.gsonscala:gson-scala_2.11:$latestVersion"
+compile "cz.augi.gsonscala:gson-scala_2.12:$latestVersion"
 ```
 
 ```scala

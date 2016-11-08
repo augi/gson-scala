@@ -11,6 +11,8 @@ import org.scalatest.junit.JUnitRunner
 import scala.concurrent.duration.Duration
 import org.scalatest.Matchers._
 
+import scala.collection.mutable.ArrayBuffer
+
 class AsMillis extends UnitSpec {
   val gson = new GsonBuilder()
               .registerBasicConverters()
@@ -56,20 +58,31 @@ abstract class UnitSpec extends FlatSpec {
                   Some("this is option string"),
                   Seq(1, 2, 3))
     val json = gson.toJson(input)
-    val deserialized = gson.fromJson(json, input.getClass)
-    deserialized shouldBe input
+    val deserialized: ExampleClass = gson.fromJson(json, input.getClass)
+    deserialized shouldEqual input
   }
 
   it must "handle missing values" in {
     val input = ExampleClass(
-      java.time.Instant.ofEpochMilli(123456000),
-      java.time.Duration.ofMillis(123000),
-      Duration(456000, TimeUnit.SECONDS),
-      Optional.empty(),
-      None,
-      Seq.empty)
+                  java.time.Instant.ofEpochMilli(123456000),
+                  java.time.Duration.ofMillis(123000),
+                  Duration(456000, TimeUnit.MILLISECONDS),
+                  Optional.empty(),
+                  None,
+                  Seq.empty)
     val json = gson.toJson(input)
-    val deserialized = gson.fromJson(json, input.getClass)
-    deserialized shouldBe input
+    val deserialized: ExampleClass = gson.fromJson(json, input.getClass)
+    deserialized shouldEqual input
+  }
+
+  implicit class ExampleClassMatcher(actual: ExampleClass) {
+    def shouldEqual(expected: ExampleClass): Unit = {
+      actual.instant shouldBe expected.instant
+      actual.duration shouldBe expected.duration
+      actual.scalaDuration shouldBe expected.scalaDuration
+      actual.optional shouldBe expected.optional
+      actual.option shouldBe expected.option
+      actual.seq shouldEqual expected.seq
+    }
   }
 }
