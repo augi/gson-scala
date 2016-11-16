@@ -8,10 +8,11 @@ import com.google.gson.{Gson, TypeAdapter, TypeAdapterFactory}
 
 object NonNullTypeAdapterFactory extends TypeAdapterFactory {
   override def create[T](gson: Gson, t: TypeToken[T]): TypeAdapter[T] = {
-    if (!classOf[Any].isAssignableFrom(t.getRawType)) {
+    if (t.getRawType.isPrimitive) {
       null
     } else {
-      new NonNullTypeAdapter[T](t.getRawType, gson.getDelegateAdapter(this, t))
+      val adapter = new NonNullTypeAdapter[T](t.getRawType, gson.getDelegateAdapter(this, t))
+      if (adapter.fields.nonEmpty) adapter else null
     }
   }
 
