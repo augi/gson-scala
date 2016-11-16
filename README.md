@@ -28,11 +28,13 @@ compile "cz.augi.gsonscala:gson-scala_2.12:$latestVersion"
 ```scala
 import cz.augi.gsonscala._
 val gson = new GsonBuilder()
-                .registerBasicConverters() // registers for Optional, Option and Seq
                 .registerMillisDurationConverters() // registers for Duration classes expecting millis in integer values
                 .registerUnixMillisInstantConverter() // registers for Instant expecting Unix millis in integer values
+                .registerBasicConverters() // registers for Optional, Option and Seq
                 .create()
 ```
+
+The `registerBasicConverters``must be called as the last method before the `create` method.
 
 Alternatively, these methods can be used for registrations:
 * `registerSecondsDurationConverters` - expects durations in seconds
@@ -41,6 +43,9 @@ Alternatively, these methods can be used for registrations:
 * `registerStringInstantConverter` - expects time in ISO format
 
 You can also cherry-pick some of converters [as shown here](https://github.com/augi/gson-scala/blob/master/src/main/scala/cz/augi/gsonscala/package.scala).
+
+> Please note that `registerBasicConverters` also registers [NonNullTypeAdapterFactory](https://github.com/augi/gson-scala/blob/master/src/main/scala/cz/augi/gsonscala/NonNullTypeAdapterFactory.scala) - it's required
+ because the default object deserializer doesn't call deserializer of a field if the value is not even present in the json.
 
 ## Why to use this library?
 As gson library targets Java 6, it doesn't support Java 8 type out of the box. There are several libraries that add support

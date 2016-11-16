@@ -5,40 +5,37 @@ import java.util.concurrent.TimeUnit
 
 import com.google.gson.{Gson, GsonBuilder}
 import org.junit.runner.RunWith
-import org.scalatest.FlatSpec
+import org.scalatest.{FlatSpec, Matchers}
 import org.scalatest.junit.JUnitRunner
 
 import scala.concurrent.duration.Duration
-import org.scalatest.Matchers._
-
-import scala.collection.mutable.ArrayBuffer
 
 class AsMillis extends UnitSpec {
   val gson = new GsonBuilder()
-              .registerBasicConverters()
               .registerMillisDurationConverters()
               .registerUnixMillisInstantConverter()
+              .registerBasicConverters()
               .create()
 }
 
 class AsSeconds extends UnitSpec {
   val gson = new GsonBuilder()
-              .registerBasicConverters()
               .registerSecondsDurationConverters()
               .registerUnixSecondsInstantConverter()
+              .registerBasicConverters()
               .create()
 }
 
 class AsString extends UnitSpec {
   val gson = new GsonBuilder()
-              .registerBasicConverters()
               .registerStringDurationConverters()
               .registerStringInstantConverter()
+              .registerBasicConverters()
               .create()
 }
 
 @RunWith(classOf[JUnitRunner])
-abstract class UnitSpec extends FlatSpec {
+abstract class UnitSpec extends FlatSpec with Matchers {
   def gson: Gson
 
   private case class ExampleClass(
