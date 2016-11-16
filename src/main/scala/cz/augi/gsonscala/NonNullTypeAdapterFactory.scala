@@ -17,9 +17,9 @@ object NonNullTypeAdapterFactory extends TypeAdapterFactory {
   }
 
   def getDefaultValue(t: Class[_]): Any =
-    if (t.isAssignableFrom(classOf[Option[_]])) Option.empty
-    else if (t.isAssignableFrom(classOf[Optional[_]])) Optional.empty()
-    else if (t.isAssignableFrom(classOf[Seq[_]])) Seq.empty
+    if (classOf[Option[_]].isAssignableFrom(t)) Option.empty
+    else if (classOf[Optional[_]].isAssignableFrom(t)) Optional.empty()
+    else if (classOf[Seq[_]].isAssignableFrom(t)) Seq.empty
     else null
 
   class NonNullTypeAdapter[T](c: Class[_ >: T], delegate: TypeAdapter[T]) extends TypeAdapter[T] {
