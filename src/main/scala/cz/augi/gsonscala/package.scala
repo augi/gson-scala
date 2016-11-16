@@ -9,6 +9,7 @@ package object gsonscala {
       .registerTypeAdapterFactory(OptionalTypeAdapterFactory)
       .registerTypeAdapterFactory(OptionTypeAdapterFactory)
       .registerTypeAdapterFactory(SeqTypeAdapterFactory)
+      .registerTypeAdapterFactory(NonNullTypeAdapterFactory)
 
     def registerStringDurationConverters(): GsonBuilder = gsonBuilder
       .registerTypeAdapter(classOf[java.time.Duration], DurationAsStringConverter)

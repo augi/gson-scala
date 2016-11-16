@@ -42,6 +42,9 @@ Alternatively, these methods can be used for registrations:
 
 You can also cherry-pick some of converters [as shown here](https://github.com/augi/gson-scala/blob/master/src/main/scala/cz/augi/gsonscala/package.scala).
 
+> Please note that `registerBasicConverters` also registers [NonNullTypeAdapterFactory](https://github.com/augi/gson-scala/blob/master/src/main/scala/cz/augi/gsonscala/NonNullTypeAdapterFactory.scala) - it's required
+ because the default object deserializer doesn't call deserializer of a field if the value is not even present in the json.
+
 ## Why to use this library?
 As gson library targets Java 6, it doesn't support Java 8 type out of the box. There are several libraries that add support
 for `Optional` type but most of them is not able to handle missing value correctly.

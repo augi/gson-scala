@@ -4,7 +4,7 @@ import java.lang.reflect.ParameterizedType
 import java.util.Optional
 
 import com.google.gson.reflect.TypeToken
-import com.google.gson.stream.{JsonReader, JsonToken, JsonWriter}
+import com.google.gson.stream.{JsonReader, JsonWriter}
 import com.google.gson.{Gson, TypeAdapter, TypeAdapterFactory}
 
 object OptionalTypeAdapterFactory extends TypeAdapterFactory {
