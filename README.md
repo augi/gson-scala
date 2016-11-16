@@ -28,11 +28,13 @@ compile "cz.augi.gsonscala:gson-scala_2.12:$latestVersion"
 ```scala
 import cz.augi.gsonscala._
 val gson = new GsonBuilder()
-                .registerBasicConverters() // registers for Optional, Option and Seq
                 .registerMillisDurationConverters() // registers for Duration classes expecting millis in integer values
                 .registerUnixMillisInstantConverter() // registers for Instant expecting Unix millis in integer values
+                .registerBasicConverters() // registers for Optional, Option and Seq
                 .create()
 ```
+
+The `registerBasicConverters``must be called as the last method before the `create` method.
 
 Alternatively, these methods can be used for registrations:
 * `registerSecondsDurationConverters` - expects durations in seconds

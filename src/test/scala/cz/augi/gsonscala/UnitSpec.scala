@@ -15,25 +15,25 @@ import scala.collection.mutable.ArrayBuffer
 
 class AsMillis extends UnitSpec {
   val gson = new GsonBuilder()
-              .registerBasicConverters()
               .registerMillisDurationConverters()
               .registerUnixMillisInstantConverter()
+              .registerBasicConverters()
               .create()
 }
 
 class AsSeconds extends UnitSpec {
   val gson = new GsonBuilder()
-              .registerBasicConverters()
               .registerSecondsDurationConverters()
               .registerUnixSecondsInstantConverter()
+              .registerBasicConverters()
               .create()
 }
 
 class AsString extends UnitSpec {
   val gson = new GsonBuilder()
-              .registerBasicConverters()
               .registerStringDurationConverters()
               .registerStringInstantConverter()
+              .registerBasicConverters()
               .create()
 }
 
