@@ -1,5 +1,5 @@
 # This project is no longer maintained!
-[gson]((https://github.com/google/gson)) library heavily depends on reflection and so it's hard to keep the support for Scala. Use [json4s](http://json4s.org/) or [circe](https://github.com/circe/circe) library instead.
+[gson](https://github.com/google/gson) library heavily depends on reflection and so it's hard to keep the support for Scala. Use [json4s](http://json4s.org/) or [circe](https://github.com/circe/circe) library instead.
 
 # gson-scala
 
