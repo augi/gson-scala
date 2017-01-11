@@ -1,3 +1,6 @@
+# This project is no longer maintained!
+[gson]((https://github.com/google/gson)) library heavily depends on reflection and so it's hard to keep the support for Scala. Use [json4s](http://json4s.org/) or [circe](https://github.com/circe/circe) library instead.
+
 # gson-scala
 
 [![Build Status](https://travis-ci.org/augi/gson-scala.svg?branch=master)](https://travis-ci.org/augi/gson-scala) [![Download](https://api.bintray.com/packages/augi/maven/gson-scala_2.12/images/download.svg) ](https://bintray.com/augi/maven/gson-scala_2.12/_latestVersion)
